@@ -8,6 +8,6 @@ public class ProjetPlanifixateurApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetPlanifixateurApplication.class, args);
-	}
 
+	}
 }
