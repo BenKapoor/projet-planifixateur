@@ -24,10 +24,14 @@ public class LigneProjet {
 
 	private String description;
 
+	private String tache;
+
 	private Date dateDebut;
 
 	private Date dateFin;
 
+//	@ManyToOne
+//	@JoinColumn(name = "idTache")
 //	private Tache tache;
 
 	@ManyToOne
@@ -38,12 +42,13 @@ public class LigneProjet {
 		super();
 	}
 
-	public LigneProjet(String libelle, String description, Date dateDebut, Date dateFin, Projet projet) {
+	public LigneProjet(String libelle, String description, Date dateDebut, Date dateFin, String tache, Projet projet) {
 		super();
 		this.libelle = libelle;
 		this.description = description;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
+		this.tache = tache;
 		this.projet = projet;
 	}
 
@@ -51,10 +56,15 @@ public class LigneProjet {
 		LigneProjet ligneProjet = new LigneProjet();
 		ligneProjet.setLibelle(ligneProjetDto.getLibelle());
 		ligneProjet.setDescription(ligneProjetDto.getDescription());
+		ligneProjet.setTache(ligneProjetDto.getTache());
 		ligneProjet.setDateDebut(ligneProjetDto.getDateDebut());
 		ligneProjet.setDateFin(ligneProjetDto.getDateFin());
 		return ligneProjet;
 	}
+
+//	public void addTache(Tache _tache) {
+//		tache = _tache;
+//	}
 
 	public Long getId() {
 		return id;
@@ -102,6 +112,14 @@ public class LigneProjet {
 
 	public void setProjet(Projet projet) {
 		this.projet = projet;
+	}
+
+	public String getTache() {
+		return tache;
+	}
+
+	public void setTache(String tache) {
+		this.tache = tache;
 	}
 
 }

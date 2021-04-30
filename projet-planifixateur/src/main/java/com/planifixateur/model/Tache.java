@@ -5,14 +5,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.planifixateur.model.dto.TacheDto;
+
 @Entity
 public class Tache {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idTache;
 
 	private String libelle;
+
+	public static Tache from(TacheDto tacheDto) {
+		Tache tache = new Tache();
+		tache.setLibelle(tacheDto.getLibelle());
+		return tache;
+	}
 
 	public Tache() {
 		super();
@@ -25,16 +33,16 @@ public class Tache {
 
 	public Tache(Long id, String libelle) {
 		super();
-		this.id = id;
+		this.idTache = id;
 		this.libelle = libelle;
 	}
 
 	public Long getId() {
-		return id;
+		return idTache;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.idTache = id;
 	}
 
 	public String getLibelle() {

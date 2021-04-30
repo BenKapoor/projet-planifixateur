@@ -41,7 +41,11 @@ public class LigneProjetService implements ILigneProjetService {
 	public LigneProjet updateLigneProjet(LigneProjet newLigneProjet, Long id) {
 		// TODO Auto-generated method stub
 		return ligneProjetRepository.findById(id).map(x -> {
+			x.setLibelle(newLigneProjet.getLibelle());
 			x.setDescription(newLigneProjet.getDescription());
+			x.setDateDebut(newLigneProjet.getDateDebut());
+			x.setDateFin(newLigneProjet.getDateFin());
+			x.setTache(newLigneProjet.getTache());
 			return ligneProjetRepository.save(x);
 		}).orElseGet(() -> {
 			newLigneProjet.setId(id);
@@ -56,5 +60,14 @@ public class LigneProjetService implements ILigneProjetService {
 		ligneProjetRepository.delete(ligneProjet);
 		return ligneProjet;
 	}
+
+//	@Transactional
+//	public LigneProjet addTacheToLigne(Long ligneId, Long tacheId) {
+//		LigneProjet ligne = getLigneProjet(ligneId);
+//		Tache tache = tacheService.getTache(tacheId);
+//
+//		ligne.setTache(tache);
+//		return ligne;
+//	}
 
 }

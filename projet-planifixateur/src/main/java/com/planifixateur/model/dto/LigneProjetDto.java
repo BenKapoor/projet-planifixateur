@@ -16,6 +16,9 @@ public class LigneProjetDto {
 
 	private Date dateFin;
 
+//	private TacheDto tacheDto;
+	private String tache;
+
 	private PlainProjetDto plainProjetDto;
 
 	public static LigneProjetDto from(LigneProjet ligneProjet) {
@@ -23,8 +26,13 @@ public class LigneProjetDto {
 		ligneProjetDto.setId(ligneProjet.getId());
 		ligneProjetDto.setLibelle(ligneProjet.getLibelle());
 		ligneProjetDto.setDescription(ligneProjet.getDescription());
+		ligneProjetDto.setTache(ligneProjet.getTache());
 		ligneProjetDto.setDateDebut(ligneProjet.getDateDebut());
 		ligneProjetDto.setDateFin(ligneProjet.getDateFin());
+		// dans le cas ou la ligne n'est assignées à aucune tâche
+//		if (Objects.nonNull(ligneProjet.getTache())) {
+//			ligneProjetDto.setTacheDto(TacheDto.from(ligneProjet.getTache()));
+//		}
 		// dans le cas ou la ligne n'est assignées à aucun projet
 		if (Objects.nonNull(ligneProjet.getProjet())) {
 			ligneProjetDto.setPlainProjetDto(PlainProjetDto.from(ligneProjet.getProjet()));
@@ -36,21 +44,27 @@ public class LigneProjetDto {
 		super();
 	}
 
-	public LigneProjetDto(Long id, String libelle, String description, Date dateDebut, Date dateFin) {
+	public LigneProjetDto(String libelle, String description, Date dateDebut, Date dateFin, String tache,
+			PlainProjetDto plainProjetDto) {
+		super();
+		this.libelle = libelle;
+		this.description = description;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.tache = tache;
+		this.plainProjetDto = plainProjetDto;
+	}
+
+	public LigneProjetDto(Long id, String libelle, String description, Date dateDebut, Date dateFin, String tache,
+			PlainProjetDto plainProjetDto) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
 		this.description = description;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
-	}
-
-	public LigneProjetDto(String libelle, String description, Date dateDebut, Date dateFin) {
-		super();
-		this.libelle = libelle;
-		this.description = description;
-		this.dateDebut = dateDebut;
-		this.dateFin = dateFin;
+		this.tache = tache;
+		this.plainProjetDto = plainProjetDto;
 	}
 
 	public Long getId() {
@@ -99,6 +113,14 @@ public class LigneProjetDto {
 
 	public void setPlainProjetDto(PlainProjetDto plainProjetDto) {
 		this.plainProjetDto = plainProjetDto;
+	}
+
+	public String getTache() {
+		return tache;
+	}
+
+	public void setTache(String tache) {
+		this.tache = tache;
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.planifixateur.model.LigneProjet;
 import com.planifixateur.model.dto.LigneProjetDto;
 import com.planifixateur.service.LigneProjetService;
 
+@CrossOrigin
 @RestController
 public class LigneProjetController {
 
@@ -86,4 +88,11 @@ public class LigneProjetController {
 		LigneProjet editedLigne = ligneProjetService.updateLigneProjet(LigneProjet.from(lignesDto), id);
 		return new ResponseEntity<>(LigneProjetDto.from(editedLigne), HttpStatus.OK);
 	}
+
+//	@PostMapping("/lignesprojet/{ligneId}/tache/{tacheId}/add")
+//	public ResponseEntity<LigneProjetDto> addTacheToLigne(@PathVariable final Long ligneId,
+//			@PathVariable final Long tacheId) {
+//		LigneProjet ligne = ligneProjetService.addTacheToLigne(ligneId, tacheId);
+//		return new ResponseEntity<>(LigneProjetDto.from(ligne), HttpStatus.OK);
+//	}
 }
