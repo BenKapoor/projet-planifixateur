@@ -32,61 +32,6 @@ public class ProjetController {
 		this.projetService = projetService;
 	}
 
-	/**
-	 * Find all projets
-	 *
-	 * @return
-	 */
-//	@GetMapping("/projets")
-//	List<Projet> findAll() {
-//		return projetService.listAllProjet();
-//	}
-
-	/**
-	 * Save Return 201 instead of 200
-	 *
-	 * @param newProjet
-	 * @return
-	 */
-//	@ResponseStatus(HttpStatus.CREATED)
-//	@PostMapping("/projets")
-//	Projet newProjet(@RequestBody Projet newProjet) {
-//		return projetService.saveProjet(newProjet);
-//	}
-
-	/**
-	 * Find
-	 *
-	 * @param id
-	 * @return
-	 */
-//	@GetMapping("/projets/{id}")
-//	Projet findOneProjet(@PathVariable Long id) {
-//		return projetService.getProjet(id);
-//	}
-
-	/**
-	 * Save or update
-	 *
-	 * @param newProjet
-	 * @param id
-	 * @return
-	 */
-//	@PutMapping("/projets/{id}")
-//	Projet saveOrUpdate(@RequestBody Projet newProjet, @PathVariable Long id) {
-//		return projetService.updateProjet(newProjet, id);
-//	}
-
-	/**
-	 * Delete
-	 *
-	 * @param id
-	 */
-//	@DeleteMapping("/projets/{id}")
-//	void deleteProjet(@PathVariable Long id) {
-//		projetService.deleteProjet(id);
-//	}
-
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/projets")
 	public ResponseEntity<ProjetDto> addProjet(@RequestBody final ProjetDto newProjetDto) {
