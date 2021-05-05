@@ -4,9 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.planifixateur.model.dto.FileDBDto;
 
 @Entity
 @Table(name = "files")
@@ -23,10 +27,32 @@ public class FileDB {
 	@Lob
 	private byte[] data;
 
+	@ManyToOne
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private Projet projet;
+
+	public static FileDB from(FileDBDto fileDBDto) {
+		FileDB fileDB = new FileDB();
+		fileDB.setName(fileDBDto.getName());
+		fileDB.setType(fileDBDto.getType());
+		fileDB.setType(fileDBDto.getType());
+		fileDB.setData(fileDBDto.getData());
+		return fileDB;
+	}
+
 	public FileDB() {
 	}
 
+	public FileDB(String name, String type, byte[] data, Projet projet) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.data = data;
+		this.projet = projet;
+	}
+
 	public FileDB(String name, String type, byte[] data) {
+		super();
 		this.name = name;
 		this.type = type;
 		this.data = data;
@@ -58,6 +84,14 @@ public class FileDB {
 
 	public void setData(byte[] data) {
 		this.data = data;
+	}
+
+	public Projet getProjet() {
+		return projet;
+	}
+
+	public void setProjet(Projet projet) {
+		this.projet = projet;
 	}
 
 }

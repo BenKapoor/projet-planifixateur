@@ -29,14 +29,19 @@ public class Projet {
 	@JoinColumn(name = "id_projet")
 	private Collection<LigneProjet> lignesProjet = new ArrayList<LigneProjet>();
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_projet")
+	private Collection<FileDB> filesDB = new ArrayList<FileDB>();
+
 	public Projet() {
 		super();
 	}
 
-	public Projet(String nom, Collection<LigneProjet> lignesProjet) {
+	public Projet(String nom, Collection<LigneProjet> lignesProjet, Collection<FileDB> filesDB) {
 		super();
 		this.nom = nom;
 		this.lignesProjet = lignesProjet;
+		this.filesDB = filesDB;
 	}
 
 	public static Projet from(ProjetDto projetDto) {
@@ -45,12 +50,20 @@ public class Projet {
 		return projet;
 	}
 
+	public void addFile(FileDB fileDb) {
+		filesDB.add(fileDb);
+	}
+
 	public void addLigne(LigneProjet ligneProjet) {
 		lignesProjet.add(ligneProjet);
 	}
 
 	public void removeLigne(LigneProjet ligneProjet) {
 		lignesProjet.remove(ligneProjet);
+	}
+
+	public void removeFile(FileDB fileDb) {
+		filesDB.remove(fileDb);
 	}
 
 	public Long getId() {
@@ -75,6 +88,14 @@ public class Projet {
 
 	public void setLignesProjet(Collection<LigneProjet> lignesProjet) {
 		this.lignesProjet = lignesProjet;
+	}
+
+	public Collection<FileDB> getFilesDB() {
+		return filesDB;
+	}
+
+	public void setFilesDB(Collection<FileDB> filesDB) {
+		this.filesDB = filesDB;
 	}
 
 }

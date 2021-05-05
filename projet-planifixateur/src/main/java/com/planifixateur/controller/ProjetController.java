@@ -71,10 +71,24 @@ public class ProjetController {
 		return new ResponseEntity<>(ProjetDto.from(projet), HttpStatus.OK);
 	}
 
+	@PostMapping("/projets/{projetId}/file/{fileId}/add")
+	public ResponseEntity<ProjetDto> addFileToProjet(@PathVariable final Long projetId,
+			@PathVariable final String fileId) {
+		Projet projet = projetService.addFileToProjet(projetId, fileId);
+		return new ResponseEntity<>(ProjetDto.from(projet), HttpStatus.OK);
+	}
+
 	@DeleteMapping("/projets/{projetId}/lignesprojet/{ligneId}/remove")
 	public ResponseEntity<ProjetDto> deleteLigneToProjet(@PathVariable final Long projetId,
 			@PathVariable final Long ligneId) {
 		Projet projet = projetService.removeLigneFromProjet(projetId, ligneId);
+		return new ResponseEntity<>(ProjetDto.from(projet), HttpStatus.OK);
+	}
+
+	@DeleteMapping("/projets/{projetId}/file/{fileId}/add")
+	public ResponseEntity<ProjetDto> deleteFileToProjet(@PathVariable final Long projetId,
+			@PathVariable final String fileId) {
+		Projet projet = projetService.removeFileFromProjet(projetId, fileId);
 		return new ResponseEntity<>(ProjetDto.from(projet), HttpStatus.OK);
 	}
 }

@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.planifixateur.dao.ProjetRepository;
+import com.planifixateur.exception.FileAlreadyAssignedException;
 import com.planifixateur.exception.LignesAlreadyAssignedException;
 import com.planifixateur.exception.ProjetNotFoundException;
+import com.planifixateur.model.FileDB;
 import com.planifixateur.model.LigneProjet;
 import com.planifixateur.model.Projet;
 
@@ -19,11 +21,14 @@ public class ProjetService implements IProjetService {
 
 	private final ProjetRepository projetRepository;
 	private final LigneProjetService ligneProjetService;
+	private final FileStorageService fileService;
 
 	@Autowired
-	public ProjetService(ProjetRepository projetRepository, LigneProjetService ligneProjetService) {
+	public ProjetService(ProjetRepository projetRepository, LigneProjetService ligneProjetService,
+			FileStorageService fileService) {
 		this.projetRepository = projetRepository;
 		this.ligneProjetService = ligneProjetService;
+		this.fileService = fileService;
 	}
 
 	/**
@@ -101,10 +106,31 @@ public class ProjetService implements IProjetService {
 	}
 
 	@Transactional
+	public Projet addFileToProjet(Long projetId, String idFile) {
+		Projet projet = getProjet(projetId);
+		FileDB fileDb = fileService.getFile(idFile);
+
+		if (Objects.nonNull(fileDb.getProjet())) {
+			throw new FileAlreadyAssignedException(idFile, fileDb.getProjet().getId());
+		}
+
+		projet.addFile(fileDb);
+		return projet;
+	}
+
+	@Transactional
 	public Projet removeLigneFromProjet(Long projetId, Long idLigne) {
 		Projet projet = getProjet(projetId);
 		LigneProjet ligneProjet = ligneProjetService.getLigneProjet(idLigne);
 		projet.removeLigne(ligneProjet);
+		return projet;
+	}
+
+	@Transactional
+	public Projet removeFileFromProjet(Long projetId, String idFile) {
+		Projet projet = getProjet(projetId);
+		FileDB fileDb = fileService.getFile(idFile);
+		projet.removeFile(fileDb);
 		return projet;
 	}
 }
